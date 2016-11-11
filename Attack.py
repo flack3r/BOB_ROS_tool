@@ -9,7 +9,6 @@ class Attack:
 
 	def PortScanning(self, ip='127.0.0.1'):
 		#stage1 roscore open check
-		RoscoreOpen = False
 		print "[*]port scanning"
 		port = 11312
 		first_find = True
@@ -26,9 +25,20 @@ class Attack:
 					port += 1
 				continue
 
-		print "[*]rosmaster pid: %d, port: %d" %(rosmaster_pid, port)
+		print "[*]rosmaster XmlRpcServer pid: %d, port: %d" %(rosmaster_pid, port)
+		
 		#stage2 roslaunch xmlrpc server port checking
+		port = 10000
+		while True:
+			try:
+				self.launch_proxy = ServerProxy("http://"+ip+":"+str(port)+"/")
+				roslaunch_pid = self.launch_proxy.get_pid()[2]
+				break
+			except:
+				port += 1
+				continue
 
+		print "[*]roslaunch XmlRpcServer pid: %d, port: %d" %(roslaunch_pid, port)
 
 	def FingerPrinting(self):
 		print "[*]finger printing"
