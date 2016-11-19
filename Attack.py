@@ -10,7 +10,7 @@ class Attack:
 	def PortScanning(self, ip='127.0.0.1'):
 		#stage1 roscore open check
 		print "[*]port scanning"
-		port = 11312
+		port = 11311
 		first_find = True
 		while True:
 			try:
@@ -42,17 +42,57 @@ class Attack:
 
 	def FingerPrinting(self):
 		print "[*]finger printing"
-		
 		#####stage 1 fingerprinting from rosmaster xmlrpcServer
+		self.GetParameter()
+		#####stage 2 Get publishers, subscribers, services
+		self.GetSystemState()
+
+	def GetParameter(self):
 		print "[*]---Parameter Names---"
 		for i, param in enumerate(self.proxy.getParamNames("")[2]):
 			print "%d: %s" %(i, param)
 
+	def GetSystemState(self):
+		print "[*]---SystemState---"
+		publishers, subscribers, services = self.proxy.getSystemState("")[2]
+		print "[*]publishers"
+		for i, topic in enumerate(publishers):
+			print "[%d]topic: %s" %(i,topic[0])
+			print "->publisher"
+			for topicPublisher in topic[1]:
+				print topicPublisher
+
+		print "[*]subscribers"
+		for i, topic in enumerate(subscribers):
+			print "[%d]topic: %s" %(i, topic[0])
+			print "->TopicSubscriber"
+			for topicSubscriber in topic[1]:
+				print topicSubscriber
+
+		print "[*]service"
+		for i, service in enumerate(services):
+			print "[%d]service: %s" %(i, service[0])
+			print "->serviceProvider"
+			for serviceProvider in topic[1]:
+				print serviceProvider
+
 	def ReplayAttack(self):
 		print "[*]replay attack"
 
-	def TurnOffRos(self):
+	def shutdown(self):
 		#stage1 turn off nodes
-
+		publishers, subscribers, services = self.proxy.getSystemState("")[2]
+		print "[*]publishers"
+		for i, topic in enumerate(publishers):
+			print "[%d]topic: %s" %(i,topic[0])
+			print "->publisher"
+			for topicPublisher in topic[1]:
+				print topicPublisher
+				
 		#stage2 turn off master
 		print "[*]turn off ros"
+		self.proxy.shutdown("",)
+
+	def _reinit(self):
+		print "[*]reinit attack"
+		self.proxy._reinit("")
