@@ -97,4 +97,4 @@ class Attack:
 
 		#stage2 turn off master
 		print "[*]turn off ros"
-		self.proxy.shutdown("",)
+		self.proxy.shutdown("","")
