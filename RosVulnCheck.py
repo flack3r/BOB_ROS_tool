@@ -6,7 +6,7 @@ def main():
 	sheild = Sheild.Sheild()
 	
 	attack.PortScanning()
-	#attack.FingerPrinting()
+	attack.FingerPrinting()
 	attack.shutdown()
 
 if __name__ == '__main__':
