@@ -29,6 +29,14 @@ def intro():
        ] [      OOO        ~ ~ /o|__|		   / |
 	''')
 
+def menu():
+	print RED("---- Menu ----")
+	print ADDED + "1. FingerPrinting (parameter, system state)"
+	print ADDED + "2. shutdown"
+	print ADDED + "3. XXE dos attack"
+	print ADDED + "4. package find"
+	print RED("--------------")
+
 
 def is_ipv4(ip):
 	match = re.match("^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$", ip)
@@ -62,8 +70,20 @@ def main():
 
 	attack = Attack.Attack()
 	attack.PortScanning(inputIP)
-	attack.FingerPrinting()
-	attack.findPack()
+
+	while True:
+		menu()
+		cmd = raw_input('menu > ')
+		if cmd == '1':
+			attack.FingerPrinting()
+		elif cmd == '2':
+			attack.shutdown()
+		elif cmd == '3':
+			attack.XxeDosAttack()
+		elif cmd == '4':
+			attack.findPack()
+		else:
+			print ERROR + "menu select number error"
 
 if __name__ == '__main__':
 	main()
