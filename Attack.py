@@ -139,7 +139,7 @@ class Attack:
 		'Content-Type': 'text/xml',
 		'Content-Length': str(len(xml))} # set what your server accepts
 
-		res = requests.post('http://'+ip+':'+self.master_port, data=xml, headers=headers)
+		res = requests.post('http://'+ip+':'+str(self.master_port), data=xml, headers=headers)
 		print res.content
 
 	def findPack(self):
