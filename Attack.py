@@ -1,5 +1,6 @@
 import requests
 import re
+import os
 import httplib, socket
 
 RED     = lambda x: "\033[31m "+x+" \033[0m"
@@ -143,11 +144,11 @@ class Attack:
 
 	def findPack(self):
 		def getRosState():
-		    FIRST_BLOCK     = 0
-		    NODE_BLOCK      = 1
-		    RESULT_BLOCK    = 2
+			FIRST_BLOCK     = 0
+			NODE_BLOCK      = 1
+			RESULT_BLOCK    = 2
 			
-		    rosInfo={}
+			rosInfo={}
 
 			proxy = self.proxy
 
@@ -272,7 +273,7 @@ class Attack:
 		        pass
 
 
-		rosInfo = getRosState(ROS_MASTER_URI)
+		rosInfo = getRosState()
 		nodes   = rosInfo.keys()
 		paths   = getPackagePath()
 		findLaunchPackage(paths, nodes)

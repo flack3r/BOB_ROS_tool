@@ -1,5 +1,6 @@
 import Attack
 import Sheild
+import re
 
 RED     = lambda x: "\033[31m "+x+" \033[0m"
 BLUE    = lambda x: "\033[34m "+x+" \033[0m"
@@ -60,10 +61,9 @@ def main():
 
 
 	attack = Attack.Attack()
-	
-	attack.PortScanning()
+	attack.PortScanning(inputIP)
 	attack.FingerPrinting()
-	attack.shutdown()
+	attack.findPack()
 
 if __name__ == '__main__':
 	main()
