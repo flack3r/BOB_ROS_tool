@@ -133,7 +133,7 @@ class Attack:
 		</methodCall>
 		"""
 		
-		headers = {'Host':ip+':'+self.master_port,
+		headers = {'Host':ip+':'+str(self.master_port),
 		'Accept-Encoding':'gzip',
 		'User-Agent': 'XMLRPC++ 0.7',
 		'Content-Type': 'text/xml',
