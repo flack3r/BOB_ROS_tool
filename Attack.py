@@ -79,17 +79,20 @@ class Attack:
 		print NOTIFY + "--------\t-----------------------------------------------"
 		for i, topic in enumerate(publishers):
 			print NOTIFY + "%d\t\t%s" %(i+1,topic[0])
+			print NOTIFY + ""
 			print NOTIFY + "%s publisher" %(topic[0])
 			print NOTIFY + "----------------------------------------------------------"
 			for topicPublisher in topic[1]:
 				print NOTIFY + topicPublisher
 			print NOTIFY + "----------------------------------------------------------"
 
+		print NOTIFY + ""
 		print BLUE("[+] Subscribers")
 		print NOTIFY + "index\tTopic"
 		print NOTIFY + "--------\t-----------------------------------------------"
 		for i, topic in enumerate(subscribers):
 			print NOTIFY + "%d\t\t%s" %(i+1, topic[0])
+			print NOTIFY + ""
 			print NOTIFY + "%s Subscriber" %(topic[0])
 			print NOTIFY + "----------------------------------------------------------"
 			for topicSubscriber in topic[1]:
@@ -97,11 +100,13 @@ class Attack:
 
 			print NOTIFY + "----------------------------------------------------------"
 
+		print NOTIFY + ""
 		print BLUE("[+] Service")
 		print NOTIFY + "index\tservice"
 		print NOTIFY + "--------\t-----------------------------------------------"
 		for i, service in enumerate(services):
 			print NOTIFY + "%d\t\t%s" %(i+1, service[0])
+			print NOTIFY + ""
 			print NOTIFY + "%s service Provider" %(service[0])
 			print NOTIFY + "----------------------------------------------------------"
 			for serviceProvider in topic[1]:
