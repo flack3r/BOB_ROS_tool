@@ -69,6 +69,7 @@ def main():
 
 	attack = Attack.Attack()
 	attack.PortScanning(inputIP)
+	print ADDED + "Port scanning complete"
 
 	while True:
 		menu()
